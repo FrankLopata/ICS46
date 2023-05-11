@@ -5,6 +5,4 @@
 #include "hashtable.h"
 #include "stats.h"
 
-TEST(Replace, Me) {
-  EXPECT_TRUE(false);
-}
+

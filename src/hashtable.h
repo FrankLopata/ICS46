@@ -16,7 +16,7 @@ struct ListNode {
         : data(new_data), next(new_next) { }
     static ListNode * find(string key, ListNode * L);
     static ListNode * insert(string key, ListNode * L);
-    static ListNode * remove(string key, ListNode * L);
+    static ListNode * remove(string key, ListNode *  L);
     static void print(ostream & out, ListNode * L);
     static int length(ListNode * L);
     static void delete_list(ListNode * L);
@@ -28,12 +28,14 @@ class HashTable
     const size_t capacity;
     ListNode * * buf;
     const string name;
+    int size;
 public:
     HashTable(const Hasher & h, size_t cap = NWORDS/45)
         : hasher(h),
           capacity(cap),
           buf(new ListNode *[cap]),
-          name("ChainedHashTable")
+          name("ChainedHashTable"),
+          size(0)
     {
         for (size_t i=0; i<capacity; ++i)
             buf[i] = nullptr;

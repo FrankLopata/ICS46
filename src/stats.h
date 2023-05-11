@@ -20,7 +20,13 @@ struct Stats {
     map<int,int> histogram{};
     vector<int> chain_lengths{};
 
-    Stats(string name, const vector<int> & chain_lengths);
+    Stats(string name, const vector<int> & chain_lengths){
+        set_all_numerics(chain_lengths);
+    }
+    
+    void set_all_numerics(const vector<int> v);
+    
+    map<int,int> set_histogram();
 
     void print_histogram(ostream & out)
     {
