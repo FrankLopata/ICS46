@@ -248,7 +248,7 @@ struct MyHasher
     {
     MyHasher():
         Hasher("MyHasher"){}
-      size_t hash(string key,int N){
+      size_t hash(string key,int N)const{
         int sum = 0;
         for (char c : key) {
             sum += static_cast<int>(c);
