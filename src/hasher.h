@@ -241,4 +241,20 @@ struct ChatGPTHasher
         return hash_val;
     }
 };
+
+
+struct MyHasher
+    :public Hasher
+    {
+    MyHasher():
+        Hasher("MyHasher"){}
+      size_t hash(string key,int N){
+        int sum = 0;
+        for (char c : key) {
+            sum += static_cast<int>(c);
+        }
+        return sum % N;
+    }
+
+};
 #endif
