@@ -83,8 +83,9 @@
 
     void HashTable::insert( const string & word){
         int index  =  hasher.hash(word,capacity);
+        if(buf[index]==nullptr)
+            size++;
         buf[index] = ListNode::insert(word,buf[index]);
-        size++;
 
     }
     bool HashTable::find( const string & word){
