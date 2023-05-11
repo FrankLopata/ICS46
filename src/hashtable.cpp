@@ -96,7 +96,8 @@
     void HashTable::remove( const string & word){
         int index = hasher.hash(word,capacity);
         if(!is_empty()){
-         size--;
+            if(buf[index] != nullptr)
+                size--;
          buf[index] = ListNode::remove(word,buf[index]);
         }
 
