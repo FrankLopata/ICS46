@@ -53,7 +53,7 @@
    }
      void ListNode::print(ostream & out, ListNode * L){
         for(ListNode * temp = L;temp!=nullptr;temp = temp->next){
-                out<<temp->data;
+            out<<temp->data<<" ";
             }
 
     }
