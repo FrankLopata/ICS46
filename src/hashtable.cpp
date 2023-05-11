@@ -107,11 +107,11 @@
 
     }
     bool HashTable::is_full(){
-        return size>0;
+        return size>=capacity;
 
     }
     void HashTable::print(ostream & out){
-        for(int i = 0; i<size;i++){
+        for(int i = 0; i<size;++i){
             ListNode::print(out,buf[i]);
         }
     }
@@ -125,7 +125,7 @@
 
     size_t HashTable::number_of_entries(){
         int out = 0;
-        for(int i = 0; i<capacity;i++){
+        for(int i = 0; i<capacity;++i){
             out += ListNode::length(buf[i]);
         }
         return out;
