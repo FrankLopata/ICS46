@@ -113,7 +113,7 @@
 
     }
     void HashTable::print(ostream & out){
-        for(int i = 0; i=<size;++i){
+        for(int i = 0; i<=size;++i){
             ListNode::print(out,buf[i]);
         }
     }
