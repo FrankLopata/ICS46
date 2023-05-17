@@ -17,11 +17,6 @@ int AVLTree::get_balance(Node * node){
 
 }
 
-void AVLTree::set_height(Node * node){
-    node->height = 1+max(get_height(node->left),get_height(node->right));
-
-}
-
 Node * AVLTree::left_rotate(Node * x){
     Node * y = x->right;
     Node * T = y->left;
@@ -95,36 +90,13 @@ Node * AVLTree::find_node(Node * t, string key){
 }
 
 
-Node * AVLTree::delete_node(Node * t, string key) {
-    if (t!=nullptr) return t;
-    if (key < t->key)
-        t->left = delete_node(t->left, key);
-    else if (key > t->key)
-        t->right = delete_node(t->right, key);
-    else { 
-        if (t->left == nullptr || t->right == nullptr) {
-            Node * child = t->left ? t->left : t->right;
-            if (child == nullptr) {
-                child = t;
-                t = nullptr;
-            } else { 
-                *t = *child;
-            }
-            delete child;
-        }
-        else {
-            Node * succ = find_leftmost(t->right);
-            t->key=succ->key;            
-            t->right = delete_node(t->right, key);
-        }
-    }
-    return t;
-}
-
 Node * AVLTree::find_leftmost(Node *t) {
-    while (t->left)
-		t = t->left;
-	return t;
+    if(t!=nullptr){
+        if(t->left==nullptr)
+            return t;
+        else
+            return find_leftmost(t->left);
+        }
 }
 
 
@@ -154,3 +126,54 @@ int AVLTree::get_height() const{
     return get_height(root);
 
 }
+Node * AVLTree::delete_node(Node * t, string key)
+{
+    if (t != nullptr)
+    {
+        if (key < t->key)
+        {
+            t->left = delete_node(t->left, key);
+        }
+        else if (key > t->key)
+        {
+            t->right = delete_node(t->right, key);
+        }
+        else
+        {
+            if (t->left == nullptr && t->right == nullptr)
+            {
+                delete t;
+                t = nullptr;
+            }
+            else if (t->left == nullptr)
+            {
+                Node * temp = t;
+                t = t->right;
+                delete temp;
+            }
+            else if (t->right == nullptr)
+            {
+                Node * temp = t;
+                t = t->left;
+                delete temp;
+            }
+            else
+            {
+                Node * temp = find_leftmost(t->right);
+                t->key = temp->key;
+                t->right = delete_node(t->right, temp->key);
+            }
+        }
+    }
+    return rebalance(t);
+    }
+
+void AVLTree::set_height(Node * node)
+{
+    if (node != nullptr)
+    {
+        int left = get_height(node->left);
+        int right = get_height(node->right);
+        node->height = std::max(left, right) + 1;
+        }
+    }
