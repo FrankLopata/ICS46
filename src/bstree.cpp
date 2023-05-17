@@ -73,15 +73,18 @@ Node * BSTree::delete_node(Node * t, string key) {
 }
 
 Node * BSTree::find_leftmost(Node *t) {
-    while (t->left)
-		t = t->left;
-	return t;
+    if (t == nullptr) {return nullptr;}
+    else if (t->left == nullptr) {return t;}
+
+    else {
+        return find_leftmost(t->left);
+    }
 }
 
 int BSTree::compute_height(Node * node){
-    if(node==nullptr)
-        return 0;
-    return max(compute_height(node->left),compute_height(node->right))+1;
+     if (node == nullptr) {return 0;}
+
+    return 1 + max(compute_height(node->left), compute_height(node->right));
 }
 
 

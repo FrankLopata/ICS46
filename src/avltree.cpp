@@ -6,9 +6,7 @@ using namespace std;
 
 
 int AVLTree::get_height(Node * node){
-    if(node==nullptr)
-        return 0;
-    return max(get_height(node->left), get_height(node->right))+1;
+    return node ? node->height : 0; 
 }
 
 int AVLTree::get_balance(Node * node){
@@ -30,16 +28,20 @@ Node * AVLTree::left_rotate(Node * x){
 
 }
 
-Node * AVLTree::right_rotate(Node * y){
+Node * AVLTree::right_rotate(Node * y) {
     Node * x = y->left;
-    Node * T = x->right;
-    x->right = y;                  
-    y->left = T;
-    set_height(y);                
+    Node * T2 = x->right;
+
+    // Perform rotation
+    x->right = y;
+    y->left = T2;
+
+    // Update heights
     set_height(x);
-    return x;     
+    set_height(y);
 
-
+    // Return new root
+    return x;
 }
 
 Node * AVLTree::rebalance(Node * t){
@@ -91,12 +93,12 @@ Node * AVLTree::find_node(Node * t, string key){
 
 
 Node * AVLTree::find_leftmost(Node *t) {
-    if(t!=nullptr){
-        if(t->left==nullptr)
-            return t;
-        else
-            return find_leftmost(t->left);
-        }
+    if (t == nullptr) {return nullptr;}
+    else if (t->left == nullptr) {return t;}
+
+    else {
+        return find_leftmost(t->left);
+    }
 }
 
 
