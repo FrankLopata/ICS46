@@ -68,10 +68,13 @@ Node * AVLTree::rebalance(Node * t){
 Node * AVLTree::insert_node(Node * t, string key){
     if ( t == nullptr ) 
          t= new Node(key, nullptr, nullptr);
-    if(t->key>key)
-        t->left = insert_node(t->left,key);
-    if(key>t->key)
-        t->right = insert_node(t->right,key);
+    else{
+        if(t->key>key){
+            t->left = insert_node(t->left,key);
+        }else{
+            if(key>t->key)
+                t->right = insert_node(t->right,key);
+            }}
     t=rebalance(t);
     set_height(t);
     return t;
