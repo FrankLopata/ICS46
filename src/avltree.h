@@ -14,6 +14,7 @@ class AVLTree
     static Node * rebalance(Node * t);
     static Node * insert_node(Node * t, string key);
     static Node * find_node(Node * t, string key);
+    static Node * find_leftmost(Node *t);
     static Node * delete_node(Node * t, string key);
 public:
     AVLTree();

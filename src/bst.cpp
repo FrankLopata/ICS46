@@ -26,7 +26,7 @@ void BST::in_order_print(ostream & out, Node * t){
 void BST::post_order_print(ostream & out, Node * t){
     if(t){
         post_order_print(out,t->left);
-        pot_order_print(out,t->right);
+        post_order_print(out,t->right);
         out<<t->value<<" ";
 
     }
@@ -35,16 +35,16 @@ void BST::post_order_print(ostream & out, Node * t){
 BST::~BST(){
 
     if(root){
-        Destroyer(root);
+        Dest(root);
     }
     return;
 
 
 }
 
-BST::Destroyer(Node * t){
-    Destroyer(t->left);
-    Destroyer(t->right);
+void BST::Dest(Node * t){
+    Dest(t->left);
+    Dest(t->right);
     delete t;
 }
 

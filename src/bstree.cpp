@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+#include "bstree.h"
 
 
 Node * BSTree::insert_node(Node * t, string key){

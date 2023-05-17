@@ -1,5 +1,8 @@
+
 #include <iostream>
+#include <fstream>
 using namespace std;
+#include "avltree.h"
 
 
 int AVLTree::get_height(Node * node){
@@ -15,7 +18,7 @@ int AVLTree::get_balance(Node * node){
 }
 
 void AVLTree::set_height(Node * node){
-    node->height = 1+max(get_height(node->left)+get_height(node->right));
+    node->height = 1+max(get_height(node->left),get_height(node->right));
 
 }
 
@@ -63,24 +66,15 @@ Node * AVLTree::rebalance(Node * t){
 }
 
 Node * AVLTree::insert_node(Node * t, string key){
-    if ( root == nullptr ) root = newNode(key, nullptr, nullptr);  
-        TreeNode * t = root;
-    while ( t->key  !=  key ){
-        if ( key  <  t->key) {
-            if ( t->left == nullptr )
-                t->left = newNode(key, nullptr, nullptr);
-            t = t->left;
-        }
-        else if ( key  >  t->key ) {
-             if ( t->right == nullptr )
-                 t->right = newNode(key, nullptr, nullptr);
-             t = t->right;
-        }
-        }
-        t->value = value;
-        return root;
-
-
+    if ( t == nullptr ) 
+         t= new Node(key, nullptr, nullptr);
+    if(t->key>key)
+        t->left = insert_node(t->left,key);
+    if(key>t->key)
+        t->right = insert_node(t->right,key);
+    t=rebalance(t);
+    set_height(t);
+    return t;
 }
 
 Node * AVLTree::find_node(Node * t, string key){
@@ -104,36 +98,34 @@ Node * AVLTree::delete_node(Node * t, string key) {
         t->left = delete_node(t->left, key);
     else if (key > t->key)
         t->right = delete_node(t->right, key);
-    else { // delete node t
-        // Case 1: Node has one or no child
+    else { 
         if (t->left == nullptr || t->right == nullptr) {
             Node * child = t->left ? t->left : t->right;
-            // No child case
             if (child == nullptr) {
                 child = t;
                 t = nullptr;
-            } else { // One child case
+            } else { 
                 *t = *child;
             }
             delete child;
         }
         else {
             Node * succ = find_leftmost(t->right);
-            
+            t->key=succ->key;            
             t->right = delete_node(t->right, key);
         }
     }
     return t;
 }
 
-Node * find_leftmost(Node *t) {
+Node * AVLTree::find_leftmost(Node *t) {
     while (t->left)
 		t = t->left;
 	return t;
 }
 
 
-AVLTree::AVLTree():BST("AVLTree");
+AVLTree::AVLTree():BST("AVLTree"){}
 
 void AVLTree::insert(const string & key){
     insert_node(root,key);
