@@ -32,31 +32,41 @@ Node * BSTree::find_node(Node * t, string key){
 
 
 Node * BSTree::delete_node(Node * t, string key) {
-    if (t!=nullptr) return t;
-    if (key < t->key)
-        t->left = delete_node(t->left, key);
-    else if (key > t->key)
-        t->right = delete_node(t->right, key);
-    else { 
-        if (t->left == nullptr || t->right == nullptr) {
-            Node * child;
-            if (t->left == nullptr) {
-                child = t-> right;
-            } else { 
-                child = t->left;
-            }
-            if(child == nullptr){
-                child =t;
-                t=nullptr;
-            }else{
-                *t = *child;
-            }
-            delete child;
+    if (t != nullptr)
+    {
+        if (key < t->key)
+        {
+            t->left = delete_node(t->left, key);
         }
-        else {
-            Node * succ = find_leftmost(t->right);
-            t->key=succ->key;            
+        else if (key > t->key)
+        {
             t->right = delete_node(t->right, key);
+        }
+        else
+        {
+            if (t->left == nullptr && t->right == nullptr)
+            {
+                delete t;
+                t = nullptr;
+            }
+            else if (t->left == nullptr)
+            {
+                Node * temp = t;
+                t = t->right;
+                delete temp;
+            }
+            else if (t->right == nullptr)
+            {
+                Node * temp = t;
+                t = t->left;
+                delete temp;
+            }
+            else
+            {
+                Node * temp = find_leftmost(t->right);
+                t->key = temp->key;
+                t->right = delete_node(t->right, temp->key);
+            }
         }
     }
     return t;
@@ -75,30 +85,26 @@ int BSTree::compute_height(Node * node){
 }
 
 
-    BSTree::BSTree():BST("BSTree"){}
-    
-    void BSTree::insert(const string & key){
-        root = insert_node( root,key);
-        count++;
-    }
-    
-    bool BSTree::find(const string & key) const{
-         return find_node(root,key);
-    }
-    
-    void BSTree::remove(const string & key){
-        delete_node(root,key);
-        count--;
+BSTree::BSTree(): BST("BSTree") {}
 
-    }
-    
-    bool BSTree::is_empty() const{
-        return root==nullptr;
+void BSTree::insert(const string & key) {
+    root = insert_node(root, key);
+    ++count;
+}
 
+bool BSTree::find(const string & key) const {
+    return find_node(root, key);
+}
 
-    }
-    
-    int BSTree::get_height() const{
-        return compute_height(root);
+void BSTree::remove(const string & key) {
+    root = delete_node(root, key);
+    --count;
+}
 
-    }
+bool BSTree::is_empty() const {
+    return root == nullptr;
+}
+
+int BSTree::get_height() const {
+    return compute_height(root);
+}
