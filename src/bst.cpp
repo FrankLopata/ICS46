@@ -34,12 +34,7 @@ void BST::post_order_print(ostream & out, Node * t){
 }
 
 BST::~BST(){
-
-    if(root){
-        Dest(root);
-    }
-
-
+    Dest(root);
 }
 
 void BST::Dest(Node * t){

@@ -32,18 +32,23 @@ Node * BSTree::find_node(Node * t, string key){
 
 
 Node * BSTree::delete_node(Node * t, string key) {
-    if (!t) return t;
+    if (t!=nullptr) return t;
     if (key < t->key)
         t->left = delete_node(t->left, key);
     else if (key > t->key)
         t->right = delete_node(t->right, key);
     else { 
         if (t->left == nullptr || t->right == nullptr) {
-            Node * child = t->left ? t->left : t->right;
-            if (child == nullptr) {
-                child = t;
-                t = nullptr;
+            Node * child;
+            if (t->left == nullptr) {
+                child = t-> right;
             } else { 
+                child = t->left;
+            }
+            if(child == nullptr){
+                child =t;
+                t=nullptr;
+            }else{
                 *t = *child;
             }
             delete child;
@@ -88,7 +93,7 @@ int BSTree::compute_height(Node * node){
     }
     
     bool BSTree::is_empty() const{
-        return compute_height(root)<=0;
+        return root==nullptr;
 
 
     }

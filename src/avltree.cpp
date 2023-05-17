@@ -96,7 +96,7 @@ Node * AVLTree::find_node(Node * t, string key){
 
 
 Node * AVLTree::delete_node(Node * t, string key) {
-    if (!t) return t;
+    if (t!=nullptr) return t;
     if (key < t->key)
         t->left = delete_node(t->left, key);
     else if (key > t->key)
