@@ -1,5 +1,5 @@
 #include <iostream>
-using namespace std
+using namespace std;
 
 
 int AVLTree::get_height(Node * node){
@@ -9,20 +9,17 @@ int AVLTree::get_height(Node * node){
 }
 
 int AVLTree::get_balance(Node * node){
-    if(node==nullptr)
-        return 0;
-    return node->data + get_balance(node->left)+get_balance(node->right);
+    return node ? get_height(node->left) - get_height(node->right) : 0;
+
 
 }
 
 void AVLTree::set_height(Node * node){
-    if(node == nullptr)
-        return nullptr;
     node->height = 1+max(get_height(node->left)+get_height(node->right));
 
 }
 
-Node * AVLTree::left_rotate(Node * y){
+Node * AVLTree::left_rotate(Node * x){
     Node * y = x->right;
     Node * T = y->left;
     y->left = x;                     
@@ -35,7 +32,7 @@ Node * AVLTree::left_rotate(Node * y){
 
 }
 
-Node * AVLTree::right_rotate(Node * x){
+Node * AVLTree::right_rotate(Node * y){
     Node * x = y->left;
     Node * T = x->right;
     x->right = y;                  
@@ -116,13 +113,13 @@ Node * AVLTree::delete_node(Node * t, string key) {
                 child = t;
                 t = nullptr;
             } else { // One child case
-                *t = *child; // copy data up from child
+                *t = *child;
             }
             delete child;
         }
         else {
             Node * succ = find_leftmost(t->right);
-            swap(t->key, succ->key);
+            
             t->right = delete_node(t->right, key);
         }
     }
@@ -136,7 +133,7 @@ Node * find_leftmost(Node *t) {
 }
 
 
-AVLTree::AVLTree():BST("BST");
+AVLTree::AVLTree():BST("AVLTree");
 
 void AVLTree::insert(const string & key){
     insert_node(root,key);
