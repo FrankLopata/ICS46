@@ -8,7 +8,7 @@ using namespace std;
 int AVLTree::get_height(Node * node){
     if(node==nullptr)
         return 0;
-    return get_height(node->left) + get_height(node->right)+1;
+    return max(get_height(node->left), get_height(node->right))+1;
 }
 
 int AVLTree::get_balance(Node * node){
@@ -40,8 +40,8 @@ Node * AVLTree::right_rotate(Node * y){
     Node * T = x->right;
     x->right = y;                  
     y->left = T;
-    set_height(x);                
-    set_height(y);
+    set_height(y);                
+    set_height(x);
     return x;     
 
 
@@ -75,8 +75,8 @@ Node * AVLTree::insert_node(Node * t, string key){
             if(key>t->key)
                 t->right = insert_node(t->right,key);
             }}
-    t=rebalance(t);
     set_height(t);
+    t=rebalance(t);
     return t;
 }
 
@@ -131,17 +131,17 @@ Node * AVLTree::find_leftmost(Node *t) {
 AVLTree::AVLTree():BST("AVLTree"){}
 
 void AVLTree::insert(const string & key){
-    insert_node(root,key);
+    root=insert_node(root,key);
     count++;
 }
 
 bool AVLTree::find(const string & key) const{
-    return find_node(root,key);
+    return find_node(root,key)!=nullptr;
 
 }
 
 void AVLTree::remove(const string & key){
-        delete_node(root,key);
+        root=delete_node(root,key);
         count--;
 }
 

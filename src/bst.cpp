@@ -38,15 +38,16 @@ BST::~BST(){
     if(root){
         Dest(root);
     }
-    return;
 
 
 }
 
 void BST::Dest(Node * t){
-    Dest(t->left);
-    Dest(t->right);
-    delete t;
+    if(t!= nullptr){
+        Dest(t->left);
+        Dest(t->right);
+        delete t;
+    }
 }
 
 ostream & operator << (ostream & out, BST & L){

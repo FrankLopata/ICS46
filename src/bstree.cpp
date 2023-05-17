@@ -5,24 +5,26 @@ using namespace std;
 
 Node * BSTree::insert_node(Node * t, string key){
     if ( t == nullptr ) 
-         t= new Node(key, nullptr, nullptr);
-    if(t->key>key)
-        t->left = insert_node(t->left,key);
-    if(key>t->key)
-        t->right = insert_node(t->right,key);
+         t= new Node(key);
+    else{
+        if(t->key>key)
+            t->left = insert_node(t->left,key);
+        else{
+            if(key>t->key)
+            t->right = insert_node(t->right,key);}}
     return t;
 
 }
 
 Node * BSTree::find_node(Node * t, string key){
     if(t==nullptr)
-        return nullptr;
+        return t;
     if(t->key==key)
         return t;
     if(t->key > key)
-        return find_node(t->right,key);
-    if(t->key<key)
         return find_node(t->left,key);
+    if(t->key<key)
+        return find_node(t->right,key);
 
 
 
@@ -64,7 +66,7 @@ Node * BSTree::find_leftmost(Node *t) {
 int BSTree::compute_height(Node * node){
     if(node==nullptr)
         return 0;
-    return compute_height(node->left) + compute_height(node->right)+1;
+    return max(compute_height(node->left),compute_height(node->right))+1;
 }
 
 
