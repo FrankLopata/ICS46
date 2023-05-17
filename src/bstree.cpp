@@ -4,23 +4,13 @@ using namespace std;
 
 
 Node * BSTree::insert_node(Node * t, string key){
-    if ( root == nullptr ) root = newNode(key, nullptr, nullptr);  
-        Node * t = root;
-    while ( t->key  !=  key ){
-        if ( key  <  t->key) {
-            if ( t->left == nullptr )
-                t->left = newNode(key, nullptr, nullptr);
-            t = t->left;
-        }
-        else if ( key  >  t->key ) {
-             if ( t->right == nullptr )
-                 t->right = newNode(key, nullptr, nullptr);
-             t = t->right;
-        }
-        }
-        t->value = value;
-        return root;
-
+    if ( t == nullptr ) 
+         t= new Node(key, nullptr, nullptr);
+    if(t->key>key)
+        t->left = insert_node(t->left,key);
+    if(key>t->key)
+        t->right = insert_node(t->right,key);
+    return t;
 
 }
 
@@ -51,14 +41,14 @@ Node * BSTree::delete_node(Node * t, string key) {
             if (child == nullptr) {
                 child = t;
                 t = nullptr;
-            } else { // One child case
+            } else { 
                 *t = *child;
             }
             delete child;
         }
         else {
             Node * succ = find_leftmost(t->right);
-            t->key =succ->key;
+            t->key=succ->key;            
             t->right = delete_node(t->right, key);
         }
     }
@@ -74,7 +64,7 @@ Node * BSTree::find_leftmost(Node *t) {
 int BSTree::compute_height(Node * node){
     if(node==nullptr)
         return 0;
-    return get_height(node->left) + get_height(node->right)+1;
+    return compute_height(node->left) + compute_height(node->right)+1;
 }
 
 

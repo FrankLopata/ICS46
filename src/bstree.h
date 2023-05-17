@@ -6,6 +6,7 @@
 class BSTree
     : public BST
 {
+    static Node * find_leftmost(Node *t);
     static Node * insert_node(Node * t, string key);
     static Node * find_node(Node * t, string key);
     static Node * left_most(Node * t);
