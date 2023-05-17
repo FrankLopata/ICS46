@@ -7,7 +7,7 @@ using namespace std;
 #include "bstree.h"
 void BST::pre_order_print(ostream & out, Node * t){
     if(t){
-        out<<t->value<<" ";
+        out<<t->key<<" ";
         pre_order_print(out,t->left);
         pre_order_print(out,t->right);
 
@@ -18,7 +18,7 @@ void BST::in_order_print(ostream & out, Node * t){
     if(t){
 
         in_order_print(out,t->left);
-        out<<t->value<<" ";
+        out<<t->key<<" ";
         in_order_print(out,t->right);
     }
 
@@ -28,7 +28,7 @@ void BST::post_order_print(ostream & out, Node * t){
     if(t){
         post_order_print(out,t->left);
         post_order_print(out,t->right);
-        out<<t->value<<" ";
+        out<<t->key<<" ";
 
     }
 }
