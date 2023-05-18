@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -79,6 +78,7 @@ Node * AVLTree::insert_node(Node * t, string key){
                 t->right = insert_node(t->right,key);
             }}
     t=rebalance(t);
+    set_height(t);
     return t;
 }
 
@@ -170,8 +170,7 @@ Node * AVLTree::delete_node(Node * t, string key)
             }
         }
     }
-    t=rebalance(t);
-    return t;
+    return rebalance(t);
     }
 
 void AVLTree::set_height(Node * node)
@@ -183,3 +182,4 @@ void AVLTree::set_height(Node * node)
         node->height = std::max(left, right) + 1;
         }
     }
+
