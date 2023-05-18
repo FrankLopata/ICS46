@@ -6,11 +6,17 @@ using namespace std;
 
 
 int AVLTree::get_height(Node * node){
-    return node ? node->height : 0; 
+    if (node != nullptr){
+        return node->height;
+    }
+    return 0; 
 }
 
 int AVLTree::get_balance(Node * node){
-    return node ? get_height(node->left) - get_height(node->right) : 0;
+    if (node != nullptr){
+        return get_height(node->left) - get_height(node->right);
+    }
+    return 0;
 
 
 }
@@ -78,13 +84,11 @@ Node * AVLTree::insert_node(Node * t, string key){
 Node * AVLTree::find_node(Node * t, string key){
     if(t==nullptr)
         return nullptr;
-    if(t->key==key)
-        return t;
     if(t->key > key)
         return find_node(t->right,key);
     if(t->key<key)
         return find_node(t->left,key);
-
+    return t;
 
 
 }
