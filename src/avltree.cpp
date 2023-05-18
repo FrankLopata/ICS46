@@ -78,7 +78,9 @@ Node * AVLTree::insert_node(Node * t, string key){
             if(key>t->key)
                 t->right = insert_node(t->right,key);
             }}
-    return rebalance(t);
+    t=rebalance(t);
+    set_height(t);
+    return t;
 }
 
 Node * AVLTree::find_node(Node * t, string key){
