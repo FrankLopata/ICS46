@@ -64,7 +64,7 @@ Node * AVLTree::rebalance(Node * t){
 
 Node * AVLTree::insert_node(Node * t, string key){
     if ( t == nullptr ) 
-         t= new Node(key, nullptr, nullptr);
+         t= new Node(key);
     else{
         if(t->key>key){
             t->left = insert_node(t->left,key);
@@ -72,9 +72,7 @@ Node * AVLTree::insert_node(Node * t, string key){
             if(key>t->key)
                 t->right = insert_node(t->right,key);
             }}
-    set_height(t);
-    t=rebalance(t);
-    return t;
+    return rebalance(t);
 }
 
 Node * AVLTree::find_node(Node * t, string key){
@@ -120,7 +118,7 @@ void AVLTree::remove(const string & key){
 }
 
 bool AVLTree::is_empty() const{
- return get_height(root)<=0;
+    return root==nullptr;
 
 }
 
