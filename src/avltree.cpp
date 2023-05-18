@@ -79,7 +79,6 @@ Node * AVLTree::insert_node(Node * t, string key){
                 t->right = insert_node(t->right,key);
             }}
     t=rebalance(t);
-    set_height(t);
     return t;
 }
 
@@ -171,7 +170,8 @@ Node * AVLTree::delete_node(Node * t, string key)
             }
         }
     }
-    return rebalance(t);
+    t=rebalance(t);
+    return t;
     }
 
 void AVLTree::set_height(Node * node)
