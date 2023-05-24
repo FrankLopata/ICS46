@@ -187,13 +187,11 @@ void HeapSorter::heapify(vector<string>& vec, int high, int root){
 }
 
 void HeapSorter::heapsort(vector<string>& vec, int low, int high){
-    int size = vec.size();
-     for ( int root = size / 2 - 1; root >= 0; --root ){
-        heapify(vec,size,root);
-    }
-     for (int end = size-1; end > 0; --end) {
-        swap(vec[0], vec[end]);
-        heapify(vec, end, 0); 
+    for(int i = low + (high-low)/2 - 1;i>=low;i--)
+        heapify(vec,high,i);
+    for(int i = high - 1; i >=low;i--){
+        swap(vec[low],vec[i]);
+        heapify(vec,i,low);
     }
 }
 
