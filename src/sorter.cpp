@@ -43,15 +43,15 @@ bool Sorter::verify_sorted(){
 
 
 void InsertionSorter::insertionsort(vector<string>& vec, int low, int high){
-    for (int index=1; index<vec.size(); index++) {
+    for (int index=low+1; index<=high; index++) {
         string currentvalue = vec[index];
-        int position = index;
-        while (position>0 && vec[position-1]>currentvalue) {
-            vec[position] = vec[position-1];
+        int position = index-1;
+        while (position>low && vec[position]>currentvalue) {
+            vec[position+1] = vec[position];
             position--;
         }
 
-        vec[position] = currentvalue;
+        vec[position+1] = currentvalue;
     }
 
 }
@@ -108,23 +108,25 @@ void QuickSorter::sort() {
 
 
 
-void IntroSorter::introsort_util(vector<string>& arr, int low, int high, int depth_limit) {
-    if (high - low < 11) {
+void IntroSorter::introsort_util(vector<string>& arr, int low, int high) {
+    if (high - low < 16) {
         InsertionSorter::insertionsort(arr, low, high);
-        return;
+    
     }
-    if (depth_limit == 0) {
-        HeapSorter::heapsort(arr, low, high);
- return;
-    }
-    int p = QuickSorter::partition(arr, low, high);
-    introsort_util(arr, low, p - 1, depth_limit - 1);
-    introsort_util(arr, p + 1, high, depth_limit - 1);
+    else if (low<high) {
+        if(high-low>2){
+            int pivi = QuickSoter::partition(arr,low,high);
+            introsort(vec,low,pivi);
+            introsort(vec,pivi+1,high);
+        }else{
+            if(arr[low]>arr[high])
+                swap(arr[low],arr[high];
+            }
+        }
 }
 
 void IntroSorter::introsort(vector<string>& avec, int low, int high){
-    int depth_limit = 2 * log(high - low);
-    introsort_util(avec, low, high, depth_limit);
+    introsort_util(avec, low, high);
 }
 void IntroSorter::sort(){
     introsort(vec,0,vec.size()-1);
