@@ -52,6 +52,7 @@ class IntroSorter : public Sorter
 {
 public:
     IntroSorter() : Sorter("IntroSorter") { }
+    static void introsort_util(vector<string>& arr, int low, int high, int depth_limit);
     static void introsort(vector<string>& vec, int low, int high);
     void sort() override;
 };
