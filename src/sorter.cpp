@@ -115,9 +115,9 @@ void IntroSorter::introsort_util(vector<string>& arr, int low, int high) {
     }
     else if (low<high) {
         if(high-low>2){
-            int pivi = QuickSoter::partition(arr,low,high);
-            introsort(vec,low,pivi);
-            introsort(vec,pivi+1,high);
+            int pivi = QuickSorter::partition(arr,low,high);
+            introsort(arr,low,pivi);
+            introsort(arr,pivi+1,high);
         }else{
             if(arr[low]>arr[high])
                 swap(arr[low],arr[high];
