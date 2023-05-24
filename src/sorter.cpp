@@ -31,7 +31,7 @@ void Sorter::print(ostream & out){
 bool Sorter::verify_sorted(){
     int size = vec.size()-1;
     for(int i = 0;i<size;i++){
-        if(vec[i]<vec[i+1])
+        if(vec[i]>vec[i+1])
             return false;
     }
     return true;
