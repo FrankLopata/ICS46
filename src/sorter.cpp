@@ -174,13 +174,13 @@ void HeapSorter::heapify(vector<string>& vec, int high, int root){
     int largest = root;
     int left = 2 * root + 1; 
     int right = 2 * root + 2;  
-    if (left < vec.size() && vec[left] > vec[largest])
+    if (left <= high && vec[left] > vec[largest])
         largest = left;
-    if (right < vec.size() && vec[right] > vec[largest])
+    if (right <= high && vec[right] > vec[largest])
         largest = right;
     if (largest != root) {
         swap(vec[root], vec[largest]);
-        heapify(vec, vec.size(), largest);
+        heapify(vec, high, largest);
     }
 
 
