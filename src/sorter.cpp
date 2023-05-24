@@ -120,7 +120,7 @@ void IntroSorter::introsort_util(vector<string>& arr, int low, int high) {
             introsort(arr,pivi+1,high);
         }else{
             if(arr[low]>arr[high])
-                swap(arr[low],arr[high];
+                swap(arr[low],arr[high]);
             }
         }
 }
