@@ -98,11 +98,46 @@ void file_to_graph(string filename, Graph & G){
 }
 
 VertexList dfs(const Graph& graph, Vertex startVertex){
-    
+  VertexList result;
+    vector<bool> visited(graph.size(), false);
+    stack<Vertex> stk;
+    visited[startVertex] = true;
+    stk.push(startVertex);
+    while (!stk.empty()) {
+        Vertex vertex = stk.top();
+        stk.pop();
+        result.push_back(vertex);
+            for (Vertex v : graph.edges_from(vertex))
+                if (!visited[v]) {
+                    visited[v] = true;
+                    stk.push(v);
+                }
+    }
+    return result;        
 }
+
 VertexList bfs(const Graph& graph, Vertex startVertex){
 
+    VertexList  result;
+    vector<bool> visited(graph.size(), false);
+    queue<Vertex> queue;
+    visited[startVertex] = true;
+    queue.push(startVertex);
+
+    while (!queue.empty()) {
+        Vertex vertex = queue.front();
+        queue.pop();
+        result.push_back(vertex);
+        for (Vertex v : graph.edges_from(vertex))
+            if (!visited[v]) {
+                visited[v] = true;
+                queue.push(v);
+            }
+    }
+    return result;
+
 }
+
 string get_arg(int argc, char *argv[], string def){
     if (argc == 2)
         return string(argv[1]);
