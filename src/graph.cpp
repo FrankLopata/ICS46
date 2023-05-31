@@ -97,7 +97,7 @@ void file_to_graph(string filename, Graph & G){
     in.close();
 }
 
-VertexList dfs(const Graph& graph, Vertex startVertex){
+VertexList bfs(const Graph& graph, Vertex startVertex){
   VertexList result;
     vector<bool> visited(graph.size(), false);
     stack<Vertex> stk;
@@ -116,7 +116,7 @@ VertexList dfs(const Graph& graph, Vertex startVertex){
     return result;        
 }
 
-VertexList bfs(const Graph& graph, Vertex startVertex){
+VertexList dfs(const Graph& graph, Vertex startVertex){
 
     VertexList  result;
     vector<bool> visited(graph.size(), false);
