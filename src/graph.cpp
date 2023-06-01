@@ -104,7 +104,7 @@ VertexList bfs(const Graph& graph, Vertex startVertex){
   v.push_back(startVertex);
   que.push(startVertex);
 
-  for(;!que.empty())
+  for(;!que.empty();)
   {
     VertexList x = graph.edgess_from(que.front());
     for(Vertex e: x){
