@@ -98,22 +98,27 @@ void file_to_graph(string filename, Graph & G){
 }
 
 VertexList bfs(const Graph& graph, Vertex startVertex){
-  VertexList result;
-    vector<bool> visited(graph.size(), false);
-    stack<Vertex> stk;
-    visited[startVertex] = true;
-    stk.push(startVertex);
-    while (!stk.empty()) {
-        Vertex vertex = stk.top();
-        stk.pop();
-        result.push_back(vertex);
-            for (Vertex v : graph.edges_from(vertex))
-                if (!visited[v]) {
-                    visited[v] = true;
-                    stk.push(v);
-                }
+  queue<Vertex> que;
+  VertexList v;
+
+  v.push_back(startVertex);
+  que.push(startVertex);
+
+  for(;!que.empty())
+  {
+    VertexList x = graph.edgess_from(que.front());
+    for(Vertex e: x){
+        if(find(v.begin(),v.end(),e)==v.end())
+            {
+            v.push_back(e);
+            que.push(e);
+            }
+
     }
-    return result;        
+    que.pop();
+
+  }
+  return v;
 }
 
 VertexList dfs(const Graph& graph, Vertex startVertex){
