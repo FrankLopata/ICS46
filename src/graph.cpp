@@ -48,16 +48,13 @@ Graph Graph::sort_edges() const{
 }
 
 VertexList Graph::edges_from(Vertex vertex) const{
-    VertexList Vertexes;
-    for(const Edge& e:*this){
-        if(e.u == vertex)
-            Vertexes.push_back(e.v);
-        else if(e.v == vertex)
-            Vertexes.push_back(e.u);
+    VertexList v;
+    for(Edge e:*this){
+        if(e.u == vertex){
+            v.push_back(e.v);
+        }
     }
-    return Vertexes;
-
-
+    return v;
 }
 
 EdgeList Kruskals(const Graph& G){
