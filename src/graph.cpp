@@ -106,7 +106,7 @@ VertexList bfs(const Graph& graph, Vertex startVertex){
 
   for(;!que.empty();)
   {
-    VertexList x = graph.edgess_from(que.front());
+    VertexList x = graph.edges_from(que.front());
     for(Vertex e: x){
         if(find(v.begin(),v.end(),e)==v.end())
             {
