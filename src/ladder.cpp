@@ -24,24 +24,23 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
     int x=0, y=0,checker=0;
     while(x<len1 &&y<len2){
         if(str1[x]!=str2[y]){
-            if(checker >= 1){
+            if(checker == 1)
                 return false;
-            }if(len1>len2){
-                ++x;
-            }else{ if(len1<len2){
-                ++y;
-            }else{
-                ++x;
-                ++y;
+            if(len1>len2)
+                x++;
+            else if(len1<len2)
+                y++;
+            else{
+                x++;
+                y++;
             }
-            ++checker;
+            checker++;
 
-        }}else{
-            ++x;
-            ++y;
+        }else{
+            x++;
+            y++;
     }
     }
-    
 
 if(len1>x||len2>y){
     checker++;
@@ -55,6 +54,21 @@ bool is_adjacent(const string& word1, const string& word2){
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list){
+    if (begin_word == end_word){
+        error(begin_word, end_word, "Begin word = End Word"); 
+        return {};}
+    if (begin_word.length() != end_word.length()){
+        error(begin_word, end_word, "Word lengths are !="); 
+        return {};}
+    if (word_list.find(begin_word) == word_list.end()){
+        error(begin_word, end_word, "Begin word is not in list"); 
+        return {};}
+    if (word_list.find(end_word) == word_list.end()){
+        error(begin_word, end_word, "End wor is not in list");
+        return {};}
+
+
+
     queue<vector<string>> lq;
     lq.push({begin_word});
     set<string> visited;
@@ -95,12 +109,18 @@ void load_words(set<string> & word_list, const string& file_name){
 }
 
 void print_word_ladder(const vector<string>& ladder){
-    for (auto it = ladder.begin(); it != ladder.end(); it++){
+    if (ladder.empty()) {cout << "No word ladder found." << endl;}
+    else
+    {
+        cout << "Word ladder found: ";
+        for (auto it = ladder.begin(); it != ladder.end(); it++)
+        {
             cout << *it;
             if (it != ladder.end() - 1)
                 cout << " ";
         }
         cout << " " << endl;
     }
+}
 
 void verify_word_ladder(){}
